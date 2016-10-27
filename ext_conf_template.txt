@@ -1,0 +1,8 @@
+#
+type = IMAP
+host = localhost
+port =
+user =
+password =
+inbox = INBOX
+amount = 300

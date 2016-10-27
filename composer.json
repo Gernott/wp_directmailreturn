@@ -1,0 +1,21 @@
+{
+	"name": "reelworx/rx-seminars",
+	"description": "Versatile seminar manager. Lets users search and register for seminars. Can optionally plugin into the rx_shop extension.",
+	"version": "1.0.0",
+	"type": "typo3-cms-extension",
+	"authors": [
+		{
+			"name": "Reelworx GmbH",
+			"role": "Developer",
+			"homepage": "http://reelworx.at/"
+		}
+	],
+	"require": {
+		"typo3/cms-core": "~7.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"Reelworx\\RxSeminars\\": "Classes/"
+		}
+	}
+}
