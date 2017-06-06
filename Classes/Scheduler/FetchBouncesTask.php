@@ -179,7 +179,7 @@ class FetchBouncesTask extends AbstractTask
                 }
             }
 
-            //imap_delete($mbox, $mail);
+            imap_delete($mbox, $mail);
             $cnt++;
             if ($cnt >= $this->amount) {
                 break;
