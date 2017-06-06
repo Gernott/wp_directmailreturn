@@ -1,16 +1,18 @@
 <?php
-namespace Reelworx\WpDirectmailreturn\Command;
+namespace Reelworx\WpDirectmailreturn\Scheduler;
 
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use DirectMailTeam\DirectMail\Readmail;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Locking\LockFactory;
 use TYPO3\CMS\Core\Locking\LockingStrategyInterface;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
-class ReturnAnalysisCommandController extends CommandController
+class FetchBouncesTask extends AbstractTask
 {
+
     /** @var string IMAP, POP3, IMAPS */
     private $type = 'IMAP';
 
@@ -32,52 +34,66 @@ class ReturnAnalysisCommandController extends CommandController
     /** @var int Amount of Mails per cycle */
     private $amount = 300;
 
+    /** @var  Logger */
+    protected $logger;
+
     private function fetchConfiguration()
     {
         $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['wp_directmailreturn']);
         if (empty($settings)) {
             $this->outputLine('Configuration incomplete. Check EM. Aborting.');
-            $this->sendAndExit(1);
+            return false;
         }
         $this->type = $settings['type'];
         if (!in_array($this->type, ['IMAP', 'POP', 'POP3', 'IMAPS'], true)) {
             $this->outputLine('Configuration incomplete. "type" is invalid. Check EM. Aborting.');
-            $this->sendAndExit(2);
+            return false;
         }
         $this->host = $settings['host'];
         if (empty($this->host)) {
             $this->outputLine('Configuration incomplete. "host" is empty. Check EM. Aborting.');
-            $this->sendAndExit(2);
+            return false;
         }
         $this->user = $settings['user'];
         if (empty($this->user)) {
             $this->outputLine('Configuration incomplete. "user" is empty. Check EM. Aborting.');
-            $this->sendAndExit(2);
+            return false;
         }
         $this->password = $settings['password'];
         if (empty($this->password)) {
             $this->outputLine('Configuration incomplete. "password" is empty. Check EM. Aborting.');
-            $this->sendAndExit(2);
+            return false;
         }
         $this->inbox = $settings['inbox'];
         if (empty($this->inbox)) {
             $this->outputLine('Configuration incomplete. "inbox" is empty. Check EM. Aborting.');
-            $this->sendAndExit(2);
+            return false;
         }
         $this->port = (int)$settings['port'];
         $this->amount = (int)$settings['amount'];
+
+        return true;
     }
 
-    public function analyzeCommand()
+    /**
+     * This is the main method that is called when a task is executed
+     * It MUST be implemented by all classes inheriting from this one
+     * Note that there is no error handling, errors and failures are expected
+     * to be handled and logged by the client implementations.
+     * Should return TRUE on successful execution, FALSE on error.
+     *
+     * @return bool Returns TRUE on successful execution, FALSE on error
+     */
+    public function execute()
     {
-        $this->fetchConfiguration();
+        $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
+
+        if (!$this->fetchConfiguration())
+            return false;
 
         /** @var LockFactory $lockFactory */
         $lockFactory = GeneralUtility::makeInstance(LockFactory::class);
         $locker = $lockFactory->createLocker('dmail_bouncer', LockingStrategyInterface::LOCK_CAPABILITY_EXCLUSIVE | LockingStrategyInterface::LOCK_CAPABILITY_NOBLOCK);
-
-        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
-        $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
 
         // Check if cronjob is already running:
         if (!$locker->acquire($locker::LOCK_CAPABILITY_EXCLUSIVE | $locker::LOCK_CAPABILITY_NOBLOCK)) {
@@ -101,15 +117,14 @@ class ReturnAnalysisCommandController extends CommandController
                 break;
             default:
                 $mb = $this->type;
-                $logger->warning('TYPO3 wp_directmailreturn Cron: WARNING: Unrecognized protocol type: ' . $this->type);
+                $this->outputLine('TYPO3 wp_directmailreturn Cron: WARNING: Unrecognized protocol type: ' . $this->type);
                 break;
         }
 
         $mbox = imap_open($mb, $this->user, $this->password);
         if ($mbox === false) {
             $locker->release();
-            $logger->error('TYPO3 wp_directmailreturn Cron: ERROR: Cannot open connection! (' . $mb . ' - ' . $this->user . ')');
-            $this->output('TYPO3 wp_directmailreturn Cron: ERROR: Cannot open connection! (' . $mb . ' - ' . $this->user . ')');
+            $this->outputLine('TYPO3 wp_directmailreturn Cron: ERROR: Cannot open connection! (' . $mb . ' - ' . $this->user . ')');
             return false;
         }
 
@@ -156,14 +171,15 @@ class ReturnAnalysisCommandController extends CommandController
                     'rtbl' => $midArr['rtbl'],
                     'return_content' => serialize($cp),
                     'return_code' => intval($cp['reason']),
+                    'url' => ''
                 );
                 $insResult = $db->exec_INSERTquery('sys_dmail_maillog', $insertFields);
                 if (!$insResult) {
-                    $logger->error('sys_dmail_maillog failed, reason: ' . $db->sql_error());
+                    $this->outputLine('sys_dmail_maillog failed, reason: ' . $db->sql_error());
                 }
             }
 
-            imap_delete($mbox, $mail);
+            //imap_delete($mbox, $mail);
             $cnt++;
             if ($cnt >= $this->amount) {
                 break;
@@ -174,4 +190,8 @@ class ReturnAnalysisCommandController extends CommandController
         return true;
     }
 
+    private function outputLine($msg)
+    {
+        $this->logger->error($msg);
+    }
 }
