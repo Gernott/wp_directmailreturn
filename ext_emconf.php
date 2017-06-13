@@ -3,8 +3,6 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "wp_directmailreturn".
  *
- * Auto generated 27-10-2014 10:57
- *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
  * writing. "version" and "dependencies" must not be touched!
@@ -14,14 +12,14 @@ $EM_CONF[$_EXTKEY] = array (
 	'title' => 'Returnmail analyse of direct_mail',
 	'description' => 'direct_mail return mail analysis without fetchmail installed (uses php imap functions)',
 	'category' => 'plugin',
-	'version' => '1.0.5',
+	'version' => '1.1.0',
 	'state' => 'stable',
 	'uploadfolder' => false,
 	'createDirs' => '',
 	'clearcacheonload' => false,
-	'author' => 'Gernot Ploiner',
+	'author' => 'WEBprofil - Gernot Ploiner e.U.',
 	'author_email' => 'office@webprofil.at',
-	'author_company' => NULL,
+	'author_company' => 'WEBprofil - Gernot Ploiner e.U.',
 	'constraints' =>
 	array (
 		'depends' =>
@@ -37,4 +35,3 @@ $EM_CONF[$_EXTKEY] = array (
 		),
 	),
 );
-

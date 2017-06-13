@@ -12,7 +12,7 @@ Last time updated: |today|
 		wp_directmailreturn
 
 	:Version:
-		1.0.5
+		1.1.0
 
 	:Language:
 		en
@@ -24,7 +24,7 @@ Last time updated: |today|
 		comma,separated,list,of,keywords
 
 	:Copyright:
-		2014
+		2017
 
 	:Author:
                 Gernot Ploiner
@@ -35,7 +35,7 @@ Last time updated: |today|
 		available from http://www.opencontent.org/opl.shtml
 
 	:Rendered:
-		29-03-2014
+		13-05-2017
 
 	The content of this document is related to TYPO3,
 	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
