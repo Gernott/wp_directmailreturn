@@ -1,6 +1,0 @@
-﻿*~
-*.bak
-.DS_Store
-.idea
-Build/**/
-/nbproject/private/

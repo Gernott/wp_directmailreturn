@@ -10,5 +10,7 @@ user =
 password =
 # cat=basic//6; type=string; label=IMAP Inbox
 inbox = INBOX
-# cat=basic//7; type=int+; label=Max number of emails per run
+# cat=basic//7; type=boolean; label=IMAP Skip certificate validation
+skipCertValidation = 0
+# cat=basic//8; type=int+; label=Max number of emails per run
 amount = 300

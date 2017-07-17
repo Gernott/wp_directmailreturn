@@ -34,6 +34,10 @@ class FetchBouncesTask extends AbstractTask
     /** @var int Amount of Mails per cycle */
     private $amount = 300;
 
+    // response: skipCertValidation hinzugefügt
+    /** @var int Skip certificate validation */
+    private $skipCertValidation = false;
+
     /** @var  Logger */
     protected $logger;
 
@@ -71,6 +75,8 @@ class FetchBouncesTask extends AbstractTask
         }
         $this->port = (int)$settings['port'];
         $this->amount = (int)$settings['amount'];
+        // response: skipCertValidation hinzugefügt
+        $this->skipCertValidation = (bool)$settings['skipCertValidation'];
 
         return true;
     }
@@ -104,7 +110,11 @@ class FetchBouncesTask extends AbstractTask
         switch (strtoupper($this->type)) {
             case "IMAP":
                 $this->port = $this->port ?: 143;
-                $mb = "{" . $this->host . ":" . $this->port . "}" . $this->inbox;
+				// response: Zeichenkette '/novalidate-cert' ergänzt
+                $suffix = "";
+                if ($this->skipCertValidation)
+                    $suffix .= "/novalidate-cert";
+                $mb = "{" . $this->host . ":" . $this->port . $suffix . "}" . $this->inbox;
                 break;
             case "IMAPS":
                 $this->port = $this->port ?: 993;

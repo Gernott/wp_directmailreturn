@@ -1,7 +1,7 @@
 {
 	"name": "reelworx/wpdirectmailreturn",
 	"description": "Versatile seminar manager. Lets users search and register for seminars. Can optionally plugin into the rx_shop extension.",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"type": "typo3-cms-extension",
 	"authors": [
 		{
