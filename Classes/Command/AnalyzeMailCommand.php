@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -30,7 +31,7 @@ class AnalyzeMailCommand extends Command {
      */
     protected function configure()
     {
-        $this->setDescription('Analyses emails sent by drirect mail.')
+        $this->setDescription('Analyses emails sent by the extension direct mail.')
             ->setHelp('Get list of Options: ' . LF . 'use the --help option or use -vvv to get some debug output in case of problems ')
             ->addOption(
                 'amount',
@@ -98,12 +99,16 @@ class AnalyzeMailCommand extends Command {
             if ( $io->getVerbosity() > 128 ) {
                 $io->writeln( "Read from Mailbox : " .  $i );
             }
-            $temp = imap_uid( $mbox, $i )  ;
-            if( $temp) {
-                $msgArray[] = $temp ;
+            try {
+                $temp = imap_uid( $mbox, $i )  ;
+                if( $temp) {
+                    $msgArray[] = $temp ;
+                }
+            } catch(Exception $e) {
+                break;
             }
-
         }
+
         if( $msgArray ) {
              $total = count($msgArray);
         } else {
