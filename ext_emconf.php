@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = array(
     'title' => 'Returnmail analyse of direct_mail',
     'description' => 'direct_mail return mail analysis without fetchmail installed (uses php imap functions)',
     'category' => 'plugin',
-    'version' => '1.2.0',
+    'version' => '2.1.0',
     'state' => 'stable',
     'uploadfolder' => false,
     'createDirs' => '',
@@ -26,7 +26,7 @@ $EM_CONF[$_EXTKEY] = array(
     array(
         'depends' =>
         array(
-            'typo3' => '7.6.0-8.7.99',
+            'typo3' => '7.6.0-9.5.99',
             'direct_mail' => '4.0.0-5.99.99',
         ),
         'conflicts' =>

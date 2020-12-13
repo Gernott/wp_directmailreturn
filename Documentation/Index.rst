@@ -24,7 +24,7 @@ Last time updated: |today|
 		comma,separated,list,of,keywords
 
 	:Copyright:
-		2017
+		2017, 2020
 
 	:Author:
                 Gernot Ploiner
@@ -35,7 +35,7 @@ Last time updated: |today|
 		available from http://www.opencontent.org/opl.shtml
 
 	:Rendered:
-		13-05-2017
+		13-12-2020
 
 	The content of this document is related to TYPO3,
 	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
@@ -48,3 +48,5 @@ Contents:
 
    Introduction.rst
    Installation.rst
+   ChangeLog/Index.rst
+
