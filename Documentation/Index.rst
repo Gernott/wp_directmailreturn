@@ -1,9 +1,18 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+.. include:: Includes.txt
+
+.. _start:
+
 =================================
 Returnmail analyse of direct_mail
 =================================
 
 
-Last time updated: |today|
+Last time updated: 13-12-2020
 
 
 .. only:: html
@@ -12,7 +21,7 @@ Last time updated: |today|
 		wp_directmailreturn
 
 	:Version:
-		1.1.0
+		2.1.0
 
 	:Language:
 		en
@@ -24,7 +33,7 @@ Last time updated: |today|
 		comma,separated,list,of,keywords
 
 	:Copyright:
-		2017
+		2017, 2020
 
 	:Author:
                 Gernot Ploiner
@@ -35,16 +44,19 @@ Last time updated: |today|
 		available from http://www.opencontent.org/opl.shtml
 
 	:Rendered:
-		13-05-2017
+		|today|
 
-	The content of this document is related to TYPO3,
-	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+The content of this document is related to TYPO3,
+a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
 
-Contents:
+**Table of Contents**
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :titlesonly:
+   :glob:
 
-   Introduction.rst
-   Installation.rst
+   Index
+   Introduction
+   Installation
+   ChangeLog/Index

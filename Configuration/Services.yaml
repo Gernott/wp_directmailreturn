@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Reelworx\WpDirectmailreturn\:
+    resource: '../Classes/*'
+
+  Reelworx\WpDirectmailreturn\Command\AnalyzeMailCommand:
+    tags:
+      - name: 'console.command'
+        command: 'wpdirectmailreturn:analyzemail'
+        schedulable: true

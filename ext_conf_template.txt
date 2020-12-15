@@ -1,16 +1,30 @@
 # cat=basic//1; type=string; label=Type
-type = IMAP
+type = IMAPS
 # cat=basic//2; type=string; label=Hostname
 host = localhost
 # cat=basic//3; type=int+; label=Port
 port =
 # cat=basic//4; type=string; label=IMAP User
 user =
-# cat=basic//5; type=string; label=IMAP Pasword
+# cat=basic//5; type=string; label=IMAP Password
 password =
 # cat=basic//6; type=string; label=IMAP Inbox
 inbox = INBOX
 # cat=basic//7; type=boolean; label=IMAP Skip certificate validation
 skipCertValidation = 0
-# cat=basic//8; type=int+; label=Max number of emails per run
+
+# cat=basic//8; type=int; label=Max number of emails per run
 amount = 300
+
+
+# cat=advanced//9; type=string; label=IMAP folder in INBOX for bounced direct_email  : Bounced
+bounced =
+# cat=advanced//10; type=string; label=IMAP folder in INBOX for emails for those we cannot find an entry in directmail : Processed
+processed =
+
+# cat=advanced//11; type=string; label=If set, this task will send  error messages to this email Address
+errorEmail =
+
+# cat=advanced//12; type=string; label=If set, this task wil send  success messages to this email Address
+successEmail =
+

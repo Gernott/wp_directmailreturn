@@ -1,7 +1,7 @@
 {
 	"name": "reelworx/wpdirectmailreturn",
-	"description": "Versatile seminar manager. Lets users search and register for seminars. Can optionally plugin into the rx_shop extension.",
-	"version": "1.2.0",
+	"description": "Bounced Email manager. direct_mail return mail analysis without fetchmail installed (uses php imap functions)",
+	"version": "2.1.0",
 	"type": "typo3-cms-extension",
 	"authors": [
 		{
@@ -16,7 +16,8 @@
 		}
 	],
 	"require": {
-		"typo3/cms-core": "^7.6 || ^8.7"
+		"typo3/cms-core": "^7.6 || ^8.7 || ^9.5",
+		"ext-imap": "*"
 	},
 	"autoload": {
 		"psr-4": {
