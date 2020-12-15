@@ -78,7 +78,7 @@ this will create an IMAP inbox folder called INBOX.Bounced
 One Folder for emails NOT sent by directmail (or no entries found in dmail log table): Suggestion is "Processed"
 this will create an IMAP inbox folder called INBOX.Processed
 
-|img-advanced|
+.. figure:: Images/extensionmanager_advanced.png
 
 With this step the configuration of Returnmail is complete. The scheduled task now fetches the emails on the "Retun Path" email account and analyses them.
 You can see the number of the returned emails with their return reason in the Direct Mail interface at Statistics. There you can choose between the sent emails. The statistics will be displayed at the bottom of the detailed view of each email.
@@ -86,15 +86,18 @@ You can see the number of the returned emails with their return reason in the Di
 
 .. figure:: Images/mails-returned.png
 
+
+
 FAQ
 """
-Gmail:
+**Gmail:**
 
 If you use GMail as returnmail account, take a look on this website:
 https://www.google.com/settings/security/lesssecureapps
 
 
-Errors:
+**Errors:**
+
 in case of error: Class 'Reelworx\WpDirectmailreturn\Command\AnalyzeMailCommand' not found
 please add this line:
 
