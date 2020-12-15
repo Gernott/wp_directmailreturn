@@ -33,6 +33,11 @@ class AnalyzeMailCommand extends Command {
     {
         $this->setDescription('Analyses emails sent by the extension direct mail.')
             ->setHelp('Get list of Options: ' . LF . 'use the --help option or use -vvv to get some debug output in case of problems ')
+            ->addArgument(
+                'rundry',
+                InputArgument::OPTIONAL,
+                'if rundry is set, it will only analyze if a Login to the configured mailbox will work'
+            )
             ->addOption(
                 'amount',
                 'a',
@@ -60,6 +65,8 @@ class AnalyzeMailCommand extends Command {
         $io->title($this->getDescription());
 
 
+
+
         /** @var FetchBouncesUtility $fetchUtil */
         $fetchUtil =  GeneralUtility::makeInstance('Reelworx\WpDirectmailreturn\Utility\FetchBouncesUtility');
 
@@ -73,6 +80,13 @@ class AnalyzeMailCommand extends Command {
             $io->writeln($fetchUtil->errorMsg ) ;
             die;
         }
+        if ($input->getArgument('rundry')) {
+            $fetchUtil->rundry = true  ;
+              if( $io->getVerbosity() > 16 ) {
+                  $io->writeln("started with argument rundry. we will just check if everything works and do NOTHING!" ) ;
+              }
+        }
+
         $fetchUtil->logger->log( LogLevel::INFO, 'TYPO3 wp_directmailreturn Cron: Run started!');
         if( $fetchUtil->amount < 1 ) {
             $io->writeln("Host: " . $fetchUtil->host ) ;
@@ -136,24 +150,27 @@ class AnalyzeMailCommand extends Command {
                 if( $io->getVerbosity()  > 128 ) {
                     $io->writeln("Try to  analyze Imap Mail (" . $key . " / " . $fetchUtil->amount . ") MsgNo:  " . $msgId);
                 }
-                $temp = $fetchUtil->analyze( $readMail ,  $mbox , $msgId  );
-                $report .= $temp ;
-                if( $io->getVerbosity() > 16 ) {
-                    $progress->advance();
-                    if( $io->getVerbosity()  > 128 ) {
-                        $io->writeln(" "  );
-                        $io->writeln("Analyze Result: " . $temp );
+                if ( !$fetchUtil->rundry ) {
+                    $temp = $fetchUtil->analyze( $readMail ,  $mbox , $msgId  );
+                    $report .= $temp ;
+                    if( $io->getVerbosity() > 16 ) {
+                        $progress->advance();
+                        if( $io->getVerbosity()  > 128 ) {
+                            $io->writeln(" "  );
+                            $io->writeln("Analyze Result: " . $temp );
+                        }
                     }
+                    $cnt++;
+                    if ($cnt >= $fetchUtil->amount) {
+                        break ;
+                    } ;
                 }
-                $cnt++;
-                if ($cnt >= $fetchUtil->amount) {
-                    break ;
-                } ;
+
             }
         }
         imap_close($mbox, CL_EXPUNGE);
 
-        if ( $cnt > 0 ) {
+        if ( $cnt > 0 && !$fetchUtil->rundry) {
             $this->mail($fetchUtil->successEmail , $_SERVER['HTTP_HOST'] . " " . $_SERVER['HOSTNAME']. " : " . $cnt . " Bounced email(s) were analysed" , $report ) ;
         }
         $fetchUtil->logger->log( LogLevel::NOTICE, 'TYPO3 wp_directmailreturn Cron: Run ended successfully! '.$cnt.' mails have been analysed!');

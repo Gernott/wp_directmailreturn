@@ -1,3 +1,5 @@
+.. include:: ../../Includes.txt
+
 .. contents::
         :local:
         :depth: 1

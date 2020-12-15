@@ -5,7 +5,7 @@ What does it do?
 ----------------
 
 The extension Returnmail has been developed by the company Webprofil and is supported by Reelworx.
-LTS 9 Compatibilty Update to Version 2.0 was done by J. Velletti ( www.velletti.de )
+
 
 This extension makes it possible to analyse the email dispatch of directmail.
 
@@ -14,8 +14,12 @@ This return code will be written into the direct mail log table and is displayed
 
 Does not need mdule fetchmail installed.
 
+
 What is new in Version 9?
 -------------------------
+LTS 9 Compatibilty Update to Version 2.0 was done by J. Velletti ( www.velletti.de )
+see https://github.com/velletti/wp_directmailreturn
+
 To be compatible with TYPO3 LTS 9 using a separate,new developed Command Controller that can be started:
 - via commandline or a NEW scheduler task
 

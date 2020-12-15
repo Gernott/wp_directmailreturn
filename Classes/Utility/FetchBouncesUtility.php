@@ -59,6 +59,9 @@ class FetchBouncesUtility
     /** @var string  */
     public $successEmail ;
 
+    /** @var boolean  */
+    public $rundry = false ;
+
     public function init( InputInterface $input=null)
     {
         $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
@@ -184,12 +187,12 @@ class FetchBouncesUtility
         if( $this->bounced || $this->processed ) {
             $folders = imap_list($mbox, $mb, "*");
 
-            if( $this->bounced ) {
+            if( $this->bounced && !$this->rundry ) {
                 if( !$this->createSubfolder($mbox , $mb , $folders, $this->bounced )) {
                     return false ;
                 }
             }
-            if( $this->processed ) {
+            if( $this->processed && !$this->rundry ) {
                 if( !$this->createSubfolder($mbox , $mb , $folders, $this->processed )) {
                     return false ;
                 }

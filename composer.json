@@ -1,7 +1,7 @@
 {
 	"name": "reelworx/wpdirectmailreturn",
 	"description": "Bounced Email manager. direct_mail return mail analysis without fetchmail installed (uses php imap functions)",
-	"version": "9.5.0",
+	"version": "2.1.0",
 	"type": "typo3-cms-extension",
 	"authors": [
 		{
