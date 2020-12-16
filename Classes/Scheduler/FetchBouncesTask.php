@@ -1,5 +1,5 @@
 <?php
-namespace Reelworx\WpDirectmailreturn\Scheduler;
+namespace WEBprofil\WpDirectmailreturn\Scheduler;
 
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;

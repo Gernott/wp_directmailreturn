@@ -98,16 +98,16 @@ https://www.google.com/settings/security/lesssecureapps
 
 **Errors:**
 
-in case of error: Class 'Reelworx\WpDirectmailreturn\Command\AnalyzeMailCommand' not found
+in case of error: Class 'WEBprofil\WpDirectmailreturn\Command\AnalyzeMailCommand' not found
 please add this line:
 
-     "Reelworx\\WpDirectmailreturn\\": "http/typo3conf/ext/wp_directmailreturn/Classes/"
+     "WEBprofil\\WpDirectmailreturn\\": "http/typo3conf/ext/wp_directmailreturn/Classes/"
 
 to your local composer.json
 
     "autoload": {
        "psr-4": {
-           "Reelworx\\WpDirectmailreturn\\": "http/typo3conf/ext/wp_directmailreturn/Classes/"
+           "WEBprofil\\WpDirectmailreturn\\": "http/typo3conf/ext/wp_directmailreturn/Classes/"
        }
     }
 

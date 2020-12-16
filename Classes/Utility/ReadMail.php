@@ -1,5 +1,5 @@
 <?php
-namespace Reelworx\WpDirectmailreturn\Utility;
+namespace WEBprofil\WpDirectmailreturn\Utility;
 
 /*
  * This file is part of the TYPO3 CMS project.
