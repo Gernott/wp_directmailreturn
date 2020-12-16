@@ -4,7 +4,7 @@ Introduction
 What does it do?
 ----------------
 
-The extension Returnmail has been developed by the company Webprofil and is supported by Reelworx.
+The extension Returnmail has been developed by the company WEBprofil and is supported by Reelworx.
 
 
 This extension makes it possible to analyse the email dispatch of directmail.

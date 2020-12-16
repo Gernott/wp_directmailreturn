@@ -1,5 +1,5 @@
 <?php
-namespace Reelworx\WpDirectmailreturn\Utility;
+namespace WEBprofil\WpDirectmailreturn\Utility;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -217,12 +217,12 @@ class FetchBouncesUtility
     }
 
     /**
-     * @param \Reelworx\WpDirectmailreturn\Utility\Readmail $readMail
+     * @param \WEBprofil\WpDirectmailreturn\Utility\Readmail $readMail
      * @param $mbox
      * @param $msgId
      * @return string
      */
-    public function analyze(\Reelworx\WpDirectmailreturn\Utility\Readmail $readMail ,  $mbox , $msgId )
+    public function analyze(\WEBprofil\WpDirectmailreturn\Utility\Readmail $readMail ,  $mbox , $msgId )
     {
         $content = imap_fetchheader($mbox, $msgId , FT_UID ) . imap_body($mbox, $msgId , FT_UID );
         $report = '' ;

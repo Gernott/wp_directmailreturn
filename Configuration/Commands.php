@@ -1,6 +1,6 @@
 <?php
 
-use Reelworx\WpDirectmailreturn\Command\AnalyzeMailCommand;
+use WEBprofil\WpDirectmailreturn\Command\AnalyzeMailCommand;
 
 return [
     'wpdirectmailreturn:analyzemail' => [

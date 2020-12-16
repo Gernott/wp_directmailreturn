@@ -1,7 +1,7 @@
 <?php
-namespace Reelworx\WpDirectmailreturn\Command;
+namespace WEBprofil\WpDirectmailreturn\Command;
 
-use Reelworx\WpDirectmailreturn\Utility\FetchBouncesUtility;
+use WEBprofil\WpDirectmailreturn\Utility\FetchBouncesUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Class UpdateSlugCommandController
  * @author Jörg Velletti <typo3@velletti.de>
- * @package Reelworx\wp_directmailreturn\
+ * @package WEBprofil\wp_directmailreturn\
  */
 class AnalyzeMailCommand extends Command {
 
@@ -68,7 +68,7 @@ class AnalyzeMailCommand extends Command {
 
 
         /** @var FetchBouncesUtility $fetchUtil */
-        $fetchUtil =  GeneralUtility::makeInstance('Reelworx\WpDirectmailreturn\Utility\FetchBouncesUtility');
+        $fetchUtil =  GeneralUtility::makeInstance('WEBprofil\WpDirectmailreturn\Utility\FetchBouncesUtility');
 
 
         if ( !$fetchUtil->init($input) ) {
@@ -136,8 +136,8 @@ class AnalyzeMailCommand extends Command {
         if( $msgArray ) {
             $cnt=0;
 
-            /** @var \Reelworx\WpDirectmailreturn\Utility\ReadMail $readMail */
-            $readMail = GeneralUtility::makeInstance('Reelworx\\WpDirectmailreturn\\Utility\\ReadMail');
+            /** @var \WEBprofil\WpDirectmailreturn\Utility\ReadMail $readMail */
+            $readMail = GeneralUtility::makeInstance('WEBprofil\\WpDirectmailreturn\\Utility\\ReadMail');
             $report = "" ;
 
 

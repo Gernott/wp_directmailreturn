@@ -1,27 +1,49 @@
 {
-	"name": "reelworx/wpdirectmailreturn",
+	"name": "webprofil/wp-directmailreturn",
 	"description": "Bounced Email manager. direct_mail return mail analysis without fetchmail installed (uses php imap functions)",
 	"version": "2.1.0",
 	"type": "typo3-cms-extension",
+	"support": {
+		"source": "https://github.com/Gernott/wp_directmailreturn/",
+		"issues": "https://github.com/Gernott/wp_directmailreturn/issues"
+	},
+	"keywords": [
+		"direct_mail",
+		"fetchmail"
+	],
 	"authors": [
 		{
 			"name": "WEBprofil - Gernot Ploiner e.U.",
 			"role": "Developer",
-			"homepage": "http://www.webprofil.at/"
+			"homepage": "https://www.webprofil.at/"
 		},
 		{
 			"name": "Reelworx GmbH",
 			"role": "Developer",
-			"homepage": "http://reelworx.at/"
+			"homepage": "https://reelworx.at/"
+		},
+		{
+			"name": "Jörg Velletti",
+			"role": "Developer",
+			"homepage": "http://www.velletti.de/"
 		}
 	],
+	"license": "GPL-2.0-or-later",
 	"require": {
 		"typo3/cms-core": "^7.6 || ^8.7 || ^9.5",
 		"ext-imap": "*"
 	},
+	"replace": {
+		"typo3-ter/wp_directmailreturn": "self.version"
+	},
 	"autoload": {
 		"psr-4": {
-			"Reelworx\\WpDirectmailreturn\\": "Classes/"
+			"WEBprofil\\WpDirectmailreturn\\": "Classes/"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "wp_directmailreturn"
 		}
 	}
 }
