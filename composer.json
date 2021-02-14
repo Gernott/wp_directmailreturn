@@ -1,7 +1,6 @@
 {
 	"name": "webprofil/wp-directmailreturn",
 	"description": "Bounced Email manager. direct_mail return mail analysis without fetchmail installed (uses php imap functions)",
-	"version": "2.1.0",
 	"type": "typo3-cms-extension",
 	"support": {
 		"source": "https://github.com/Gernott/wp_directmailreturn/",
