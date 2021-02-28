@@ -122,7 +122,6 @@ class FetchBouncesUtility
         }
         $this->errorEmail = $settings['errorEmail'];
         $this->successEmail = $settings['successEmail'];
-
         $this->port = (int)$settings['port'];
         $this->amount = (int)$settings['amount'];
         // response: skipCertValidation hinzugefügt

@@ -1,6 +1,7 @@
 <?php
 namespace WEBprofil\WpDirectmailreturn\Command;
 
+use TYPO3\CMS\Core\Information\Typo3Version;
 use WEBprofil\WpDirectmailreturn\Utility\FetchBouncesUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -45,9 +46,17 @@ class AnalyzeMailCommand extends Command {
 
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->analyzeCommand( $input,  $output ) ;
+        if ($this->analyzeCommand( $input,  $output ) ) {
+            return 1 ;
+        }
+        return 0 ;
 
     }
     /**
@@ -195,21 +204,27 @@ class AnalyzeMailCommand extends Command {
      * @param \string $plain
      * @return \boolean true, if mail should be send - false, if parameter errors are given
      */
-    public function mail($to, $subject, $plain) {
-       if(strcmp($to, '')!=0)
+    public function mail($to, $subject, $plain): bool
+    {
+       if(strcmp($to, '')!=0 && GeneralUtility::validEmail( $to ))
        {
-            $fromEmail = 'noreply@'.$_SERVER['HTTP_HOST'];
-            $fromName = $_SERVER['HTTP_HOST'];
+           $fromName = $_SERVER['HTTP_HOST'] ;
+           if ( $fromName == '' ) {
+               $fromName = $_SERVER['SERVER_NAME'] ;
+           }
+           $fromEmail = \TYPO3\CMS\Core\Utility\MailUtility::getSystemFromAddress();
+
+           if ( $fromEmail == "no-reply@example.com" ) {
+               $fromEmail = 'noreply@' . $fromName ;
+           }
            if ( ! GeneralUtility::validEmail( $fromEmail )) {
                $fromEmail = $to ;
            }
+
            /** @var \TYPO3\CMS\Core\Mail\MailMessage $message // make instance of swiftmailer */
           $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 
-          // from
-          if ($fromEmail) {
-            $message->setFrom(array($fromEmail => $fromName));
-          }
+          $message->setFrom(array($fromEmail => $fromName));
 
           // to
           $recipients = array();
@@ -237,12 +252,25 @@ class AnalyzeMailCommand extends Command {
           $message->setSubject($subject);
            $html = nl2br( $plain ) ;
           // html
-          $message->setBody($html, 'text/html', 'utf-8');
 
-          // plain
-          if ($plain) {
-            $message->addPart($plain, 'text/plain', 'utf-8');
-          }
+           /** @var Typo3Version $tt */
+           $tt = GeneralUtility::makeInstance( \TYPO3\CMS\Core\Information\Typo3Version::class ) ;
+
+           if( $tt->getMajorVersion()  < 10 ) {
+               $message->setBody($html, 'text/html', 'utf-8');
+               // plain
+               if ($plain) {
+                   $message->addPart($plain, 'text/plain', 'utf-8');
+               }
+           } else {
+               $message->html( nl2br( $html )  , 'utf-8'  );
+                if ($plain) {
+                    $message->text($plain, 'utf-8');
+                }
+           }
+
+
+
 
           // send
           $message->send();
