@@ -12,6 +12,6 @@ if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
             );
 
         },
-        $_EXTKEY
+        'wp_directmailreturn'
     );
 }

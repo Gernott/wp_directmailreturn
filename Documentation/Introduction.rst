@@ -15,7 +15,7 @@ This return code will be written into the direct mail log table and is displayed
 Does not need mdule fetchmail installed.
 
 
-What is new in Version 9?
+What is new in Version 2?
 -------------------------
 LTS 9 Compatibilty Update to Version 2.0 was done by J. Velletti ( www.velletti.de )
 see https://github.com/velletti/wp_directmailreturn
