@@ -134,7 +134,7 @@ class AnalyzeMailCommand extends Command {
              $total = count($msgArray);
         } else {
              $io->writeln("No emails found in inbox");
-             die('');
+             return true;
         }
         if( $io->getVerbosity() > 16 ) {
             $progress = $io->createProgressBar($total) ;
