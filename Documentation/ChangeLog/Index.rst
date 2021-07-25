@@ -11,7 +11,7 @@
 ChangeLog
 =========
 
-For details have a look at the Github commits: https://github.com/Gernott/wpdirectmailreturn/commits/master
+For details have a look at the Github commits: https://github.com/Gernott/wp_directmailreturn/commits/master
 
 Breaking changes
 ________________
